@@ -27,3 +27,59 @@ $ brew --version
 Homebrew 1.0.6
 Homebrew/homebrew-core (git revision 1b10; last commit 2017-01-23)
 ```
+
+You should probably also run the following command to ensure everything is configured correctly:
+
+```
+$ brew doctor
+```
+
+It will instruct you if you need to correct anything.
+
+## Extra Brew Taps
+
+We are going to use some brews that require some external `taps:`
+
+```
+$ brew tap homebrew/dupes
+$ brew tap homebrew/versions
+$ brew tap homebrew/php
+$ brew tap homebrew/apache
+```
+
+If you already have brew installed, make sure you have the all the latest available brews:
+
+```
+$ brew update
+```
+
+Now you are ready to brew!
+
+## Apache Installation
+
+The latest `macOS 10.12 Sierra` comes with Apache 2.4 pre-installed, however, it is no longer a simple task to use this version with Homebrew because Apple has removed some required scripts in this release. However, the solution is to install Apache 2.4 via Homebrew and then configure it to run on the standard ports (80/443).
+
+If you already have the built-in Apache running, it will need to be shutdown first, and any auto-loading scripts removed. It really doesn't hurt to just run all these commands in order - even if it's a fresh installation:
+
+```
+$ sudo apachectl stop
+$ sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist 2>/dev/null
+$ brew install httpd24 --with-privileged-ports --with-http2
+```
+
+This step takes a little while as it builds Apache from source. Upon completion you should see a message like:
+
+```
+🍺  /usr/local/Cellar/httpd24/2.4.23_2: 212 files, 4.4M, built in 1 minute 45 seconds
+```
+
+This is important because you will need that path in the next step. In this example the path was `/usr/local/Cellar/httpd24/2.4.23_2`. If you get a newer version, simply use that path in the next line:
+
+```
+$ sudo cp -v /usr/local/Cellar/httpd24/2.4.23_2/homebrew.mxcl.httpd24.plist /Library/LaunchDaemons
+$ sudo chown -v root:wheel /Library/LaunchDaemons/homebrew.mxcl.httpd24.plist
+$ sudo chmod -v 644 /Library/LaunchDaemons/homebrew.mxcl.httpd24.plist
+$ sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.httpd24.plist
+```
+
+You now have installed Homebrew's Apache, and configured it to auto-start with a privileged account. It should already be running, so you can try to reach your server in a browser by pointing it at your localhost, you should see a simple header that says `"It works!"`.
