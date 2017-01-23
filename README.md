@@ -119,3 +119,21 @@ $ sudo apachectl -k restart
 ```
 
   The `-k` will `force a restart immediately` rather than asking politely to restart when apache is good and ready
+
+## Apache Configuration
+
+Now that we have a working web server, we will want to do is make some configuration changes so it works better as a local development server.
+
+Firs we'll configure it to use the to change the document root for Apache. This is the folder where Apache looks to serve file from. By default, the document root is configured as `/Library/WebServer/Documents`. As this is a development machine, let's assume we want to change the document root to point to a folder in our own home directory. To do this, we will need to edit Apache's configuration file.
+
+```
+/usr/local/etc/apache2/2.4/httpd.conf
+```
+
+For simplicity we'll use the built-in `TextEditor` application to make all our edits. You can launch this from the Terminal by using the `open -e` command followed by the path to the file:
+
+```
+$ open -e /usr/local/etc/apache2/2.4/httpd.conf
+```
+
+![textedit](https://github.com/phplevine/macos-WDE/blob/master/textedit.png?raw=true)
