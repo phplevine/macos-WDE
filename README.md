@@ -83,3 +83,39 @@ $ sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.httpd24.plist
 ```
 
 You now have installed Homebrew's Apache, and configured it to auto-start with a privileged account. It should already be running, so you can try to reach your server in a browser by pointing it at your localhost, you should see a simple header that says `"It works!"`.
+
+![it-works](https://github.com/phplevine/macos-WDE/blob/master/it-works.png?raw=true)
+
+## Troubleshooting Tips
+
+If you get a message that the browser can't connect to the server, first check to ensure the server is up.
+
+```
+$ ps -aef | grep httpd
+```
+
+You should see a few httpd processes if Apache is up and running.
+
+Try to restart Apache with:
+
+```
+$ sudo apachectl -k restart
+```
+
+You can watch the Apache error log in a new Terminal tab/window during a restart to see if anything is invalid or causing a problem:
+
+```
+$ tail -f /usr/local/var/log/apache2/error_log
+```
+
+If that doesn't work, check to ensure you have `Listen: 80` in your `/usr/local/etc/apache2/2.4/httpd.conf` configuration file.
+
+Apache is controlled via the `apachectl` command so some useful commands to use are:
+
+```
+$ sudo apachectl start
+$ sudo apachectl stop
+$ sudo apachectl -k restart
+```
+
+  The `-k` will `force a restart immediately` rather than asking politely to restart when apache is good and ready
