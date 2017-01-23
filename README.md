@@ -75,12 +75,12 @@ $ brew tap homebrew/apache
 
 4、配置Apache
   输入`$ open -e /usr/local/etc/apache2/2.4/httpd.conf`会看到如下信息
-  ![textedit](img/textedit.png)
+  ![textedit](img/textedit.png).
 
-  搜索`DocumentRoot`将`DocumentRoot "/usr/local/var/www/htdocs"`替换成你的路径
-  搜索`<Directory /usr/local/var/www/htdocs>`替换成你的路径
-  搜索`AllowOverride`改为`AllowOverride All`
-  搜索`mod_rewrite`去掉前面注释改为`LoadModule rewrite_module libexec/mod_rewrite.so`
-  搜索`User`和`Group`可以将`User`改为你的用户名或者`www`，可以将用户组改为`staff`或者`www`
+  搜索`DocumentRoot`将`DocumentRoot "/usr/local/var/www/htdocs"`替换成你的路径.
+  搜索`<Directory /usr/local/var/www/htdocs>`替换成你的路径.
+  搜索`AllowOverride`改为`AllowOverride All`.
+  搜索`mod_rewrite`去掉前面注释改为`LoadModule rewrite_module libexec/mod_rewrite.so`.
+  搜索`User`和`Group`可以将`User`改为你的用户名或者`www`，可以将用户组改为`staff`或者`www`.
 
 ## 安装PHP
